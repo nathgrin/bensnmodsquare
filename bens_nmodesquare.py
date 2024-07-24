@@ -9,6 +9,8 @@ import matplotlib.colors
 
 import os
 
+ntot = 11
+
 thecolors = {
 'vaal': { # Childish
     0: 'lightcoral',
@@ -54,10 +56,11 @@ thecolors = {
 def get_color(n,name):
     import matplotlib.colors as mcolors
     import matplotlib
+    global ntot
     if name == "colorwheel":
-        phase = -0.05
+        phase = -0.05#-0.025#
         # # print(n,n/11+phase)
-        h = (n/11)+phase
+        h = (n/ntot)+phase
         if h > 1:
             h = h-1
         # h = 1-h
@@ -86,7 +89,7 @@ def load_matplotlib_local_fonts(fname):
     
     
 def make_fig(fname, n,fontname,colorsname,fontcolor):
-    plt.xkcd()
+    # plt.xkcd()
     
     
     
@@ -123,19 +126,19 @@ def make_fig(fname, n,fontname,colorsname,fontcolor):
     
     
 def main(): 
-    
+    global ntot
     fontname = 'xkcd-script.ttf'
-    n = 11
+    n = ntot
     colorsname = 'speels'
     fontcolor = 'w'
     i = 0
-    for fontname in ['Montserrat-VariableFont_wght.ttf','xkcd-script.ttf']:#'xkcd.otf',
+    for fontname in ['Montserrat-VariableFont_wght.ttf']:#,'xkcd-script.ttf']:#'xkcd.otf',
         fontcolor='k' if 'xkcd' in fontname else 'w'
-        for colorsname in ['colorwheel','vaal','speels']:
-            fname = '%s.png'%('abcdefghijklmnopqrstuvwxyz'[i])
-            i += 1
-            # fname = "bens_nmod_square_%i_%s_%s_%s.png"%(n,fontname,colorsname,fontcolor)
-            # fname = fname.replace('.otf','').replace('.ttf','')
+        for colorsname in ['colorwheel']:#,'vaal','speels']:
+            # fname = '%s.png'%('abcdefghijklmnopqrstuvwxyz'[i])
+            # i += 1
+            fname = "bens_nmod_square_%i_%s_%s_%s.png"%(n,fontname,colorsname,fontcolor)
+            fname = fname.replace('.otf','').replace('.ttf','')
             
             
             
