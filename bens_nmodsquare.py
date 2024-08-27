@@ -50,7 +50,20 @@ thecolors = {
     8: 'darkcyan',
     9: 'indigo',
     10: 'tomato',
-}
+},
+'pastelrainbow': { # from https://colorswall.com/palette/164437 and adapted
+    0: '#000000',
+    1: '#ff5e5e',
+    2: '#ffa45e',
+    3: '#ffda5e',
+    4: '#efef6c',
+    5: '#76aa3e',
+    6: '#2b7372',
+    7: '#5e5eff',
+    8: '#6c4cbd',
+    9: '#794a94',
+    10: '#c3a1c9',
+},
 }
     
 def get_color(n,name):
@@ -134,7 +147,7 @@ def main():
     i = 0
     for fontname in ['Montserrat-VariableFont_wght.ttf']:#,'xkcd-script.ttf']:#'xkcd.otf',
         fontcolor='k' if 'xkcd' in fontname else 'w'
-        for colorsname in ['colorwheel']:#,'vaal','speels']:
+        for colorsname in ['pastelrainbow','colorwheel']:#,'vaal','speels']:
             # fname = '%s.png'%('abcdefghijklmnopqrstuvwxyz'[i])
             # i += 1
             fname = "bens_nmod_square_%i_%s_%s_%s.png"%(n,fontname,colorsname,fontcolor)
