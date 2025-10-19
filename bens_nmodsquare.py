@@ -112,7 +112,7 @@ def load_matplotlib_local_fonts(fname):
     
     
 def make_fig(fname, n,fontname,colorsname,fontcolor):
-    plt.xkcd()
+    # plt.xkcd()
     
     
     
@@ -141,12 +141,16 @@ def make_fig(fname, n,fontname,colorsname,fontcolor):
             
             x,y,number = j/n,1-i/n,i*j % n #(i*i+j*j) % n #
             ax.add_patch(Rectangle((x-0.5/(n+1),y-0.5/(n+1)), 1/(n+1), 1/(n+1),color=get_color(number,colorsname)))
-            ax.text(x-0.001,y-0.001,str(number),va='center',ha='center',transform=ax.transAxes,fontsize=12,c=fontcolor)#fontsize=24
+            if 'xkcd' in fontname:
+                ax.text(x,y,str(number),va='center',ha='center',transform=ax.transAxes,fontsize=12,c=fontcolor)#fontsize=24
+            else:
+                for strokewidth,fontcolor in [(3,'w'),(2,'k')]:
+                    ax.text(x,y-0.0005,str(number),va='center',ha='center',transform=ax.transAxes,fontsize=12,c=fontcolor)#fontsize=24
             
     
     # ax.imshow(your_image, aspect='auto')
     print("SAVING",fname)
-    plt.savefig(fname)#,dpi=300)
+    plt.savefig(fname,dpi=300)
     plt.show()
     
 
@@ -161,14 +165,13 @@ def main():
     colorsname = 'speels'
     fontcolor = 'w'
     i = 0
-    for fontname in ['xkcd-script.ttf']:#'Montserrat-VariableFont_wght.ttf']:#,'xkcd.otf',
+    for fontname in ['Montserrat-VariableFont_wght.ttf']:#'xkcd-script.ttf']:#,'xkcd.otf',
         fontcolor='k' if 'xkcd' in fontname else 'w'
         for colorsname in ['plasma','viridis']:#['colorwheel']:#,'pastelrainbow']:#,]:#,'vaal','speels']:
             # fname = '%s.png'%('abcdefghijklmnopqrstuvwxyz'[i])
             # i += 1
             fname = "bens_nmod_square_%i_%s_%s_%s.png"%(n,fontname,colorsname,fontcolor)
             fname = fname.replace('.otf','').replace('.ttf','')
-            
             
             
             make_fig(fname,n,fontname,colorsname,fontcolor)
