@@ -9,7 +9,7 @@ import matplotlib.colors
 
 import os
 
-ntot = 11
+ntot = 31
 
 thecolors = {
 'vaal': { # Childish
@@ -78,7 +78,17 @@ def get_color(n,name):
             h = h-1
         # h = 1-h
         # return mcolors.hsv_to_rgb((h,1,1))
-        cmap = matplotlib.cm.get_cmap('rainbow')
+        cmap = plt.get_cmap('rainbow')
+        return cmap(h)
+    elif name == "viridis" or name == "inferno" or name == "plasma":
+        phase = -0.05#-0.025#
+        # # print(n,n/11+phase)
+        h = (n/ntot)+phase
+        if h > 1:
+            h = h-1
+        # h = 1-h
+        # return mcolors.hsv_to_rgb((h,1,1))
+        cmap = plt.get_cmap(name)
         return cmap(h)
     else:
         return thecolors[name].get(n,"white")
@@ -131,7 +141,7 @@ def make_fig(fname, n,fontname,colorsname,fontcolor):
             
             x,y,number = j/n,1-i/n,i*j % n #(i*i+j*j) % n #
             ax.add_patch(Rectangle((x-0.5/(n+1),y-0.5/(n+1)), 1/(n+1), 1/(n+1),color=get_color(number,colorsname)))
-            ax.text(x,y,str(number),va='center',ha='center',transform=ax.transAxes,fontsize=24,c=fontcolor)
+            ax.text(x-0.001,y-0.001,str(number),va='center',ha='center',transform=ax.transAxes,fontsize=12,c=fontcolor)#fontsize=24
             
     
     # ax.imshow(your_image, aspect='auto')
@@ -151,9 +161,9 @@ def main():
     colorsname = 'speels'
     fontcolor = 'w'
     i = 0
-    for fontname in ['Montserrat-VariableFont_wght.ttf']:#,'xkcd-script.ttf']:#'xkcd.otf',
+    for fontname in ['xkcd-script.ttf']:#'Montserrat-VariableFont_wght.ttf']:#,'xkcd.otf',
         fontcolor='k' if 'xkcd' in fontname else 'w'
-        for colorsname in ['colorwheel']:#,'pastelrainbow']:#,]:#,'vaal','speels']:
+        for colorsname in ['plasma','viridis']:#['colorwheel']:#,'pastelrainbow']:#,]:#,'vaal','speels']:
             # fname = '%s.png'%('abcdefghijklmnopqrstuvwxyz'[i])
             # i += 1
             fname = "bens_nmod_square_%i_%s_%s_%s.png"%(n,fontname,colorsname,fontcolor)
