@@ -118,7 +118,7 @@ def make_fig(fname, n,fontname,colorsname,fontcolor):
     
     from matplotlib import patheffects
     from matplotlib import rcParams
-    strokewidth = 4 if 'xkcd' in fontname else 2.5
+    strokewidth = 4 if 'xkcd' in fontname else 3#2.5
     rcParams.update({'path.effects': [
             patheffects.withStroke(linewidth=strokewidth, foreground="w")],})
     
@@ -128,13 +128,15 @@ def make_fig(fname, n,fontname,colorsname,fontcolor):
     print(" >",fname)
     
     w,h = 10,10
+    # w,h = 39.37008,39.37008
     fig = plt.figure(frameon=False,figsize=(w,h))
+    # fig.
     # fig.set_size_inches(w,h)
     # fig.set_dpi(300)
     
-    ax = plt.Axes(fig, [0., 0., 1., 1.])
+    # ax = plt.Axes(fig, [0., 0., 1., 1.])
+    ax = fig.add_axes((0., 0., 1., 1.))
     ax.set_axis_off()
-    fig.add_axes(ax)
     
     for i in range(1,n):
         for j in range(1,n):
@@ -144,13 +146,13 @@ def make_fig(fname, n,fontname,colorsname,fontcolor):
             if 'xkcd' in fontname:
                 ax.text(x,y,str(number),va='center',ha='center',transform=ax.transAxes,fontsize=12,c=fontcolor)#fontsize=24
             else:
-                for strokewidth,fontcolor in [(3,'w'),(2,'k')]:
+                for strokewidth,fontcolor in [(3,'w'),(2.5,'k')]: # strokewidth doesnt do anything
                     ax.text(x,y-0.0005,str(number),va='center',ha='center',transform=ax.transAxes,fontsize=12,c=fontcolor)#fontsize=24
             
     
     # ax.imshow(your_image, aspect='auto')
     print("SAVING",fname)
-    plt.savefig(fname,dpi=300)
+    plt.savefig(fname)#,dpi=300)
     plt.show()
     
 
@@ -170,7 +172,7 @@ def main():
         for colorsname in ['plasma','viridis']:#['colorwheel']:#,'pastelrainbow']:#,]:#,'vaal','speels']:
             # fname = '%s.png'%('abcdefghijklmnopqrstuvwxyz'[i])
             # i += 1
-            fname = "bens_nmod_square_%i_%s_%s_%s.png"%(n,fontname,colorsname,fontcolor)
+            fname = "bens_nmod_square_%i_%s_%s_%s.pdf"%(n,fontname,colorsname,fontcolor)
             fname = fname.replace('.otf','').replace('.ttf','')
             
             
